@@ -3,7 +3,7 @@ import pyaudio
 import struct
 
 # === НАСТРОЙКИ ===
-REIKA_IP = "100.76.27.31"  # ← ЦИФРОВОЙ IP!
+REIKA_IP = "reika"  # ← ЦИФРОВОЙ IP!
 PORT = 5001
 RATE = 48000
 CHUNK = 480  # 10ms (попробуй, если трещит — ставь 960)
