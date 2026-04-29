@@ -6,7 +6,7 @@ import sys
 # === НАСТРОЙКИ ===
 REIKA_IP = "reika"  # ← ВПИШИ СЮДА TAILSCALE IP НОУТА!
 PORT = 5001
-RATE = 16000
+RATE = 32000
 CHUNK = 320  # 20ms @ 16kHz (важно для webrtcvad на приёмнике)
 
 def find_inmp441(p):
