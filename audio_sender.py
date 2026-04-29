@@ -2,7 +2,7 @@ import socket
 import pyaudio
 
 # === НАСТРОЙКИ ===
-REIKA_IP = "100.76.27.31"  # Твой Tailscale IP
+REIKA_IP = "reika"  # Твой Tailscale IP
 PORT = 5001
 RATE = 48000
 CHUNK = 480  # 480 сэмплов → 10 мс (48000/480 = 100 Гц)
