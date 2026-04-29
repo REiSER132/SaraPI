@@ -31,7 +31,7 @@ def run():
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     
     p = pyaudio.PyAudio()
-    dev_idx = find_inmp441(p)
+    dev_idx = 0(p)
     
     try:
         stream = p.open(format=pyaudio.paInt16, channels=1, rate=RATE,
