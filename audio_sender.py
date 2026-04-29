@@ -3,7 +3,7 @@ import pyaudio
 import time
 
 # НАСТРОЙКИ
-REIKA_IP = "100.x.x.x"  # IP ноута в Tailscale
+REIKA_IP = "reika"  # IP ноута в Tailscale
 PORT = 5001
 RATE = 16000
 CHUNK = 1024
