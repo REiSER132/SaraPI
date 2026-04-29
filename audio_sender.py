@@ -5,8 +5,8 @@ import time
 # === НАСТРОЙКИ ===
 REIKA_IP = "reika"  # ← ВПИШИ TAILSCALE IP НОУТА!
 PORT = 5001
-RATE = 32000
-CHUNK = 320  # 20ms @ 16kHz
+RATE = 48000  # ← 48kHz вместо 16kHz!
+CHUNK = 960   # ← 20ms @ 48kHz (было 320)
 
 def run():
     print(f"[📡] Стрим на {REIKA_IP}:{PORT}...")
