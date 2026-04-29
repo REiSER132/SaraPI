@@ -1,21 +1,26 @@
 import socket
 import pyaudio
-import time
+import struct
 
 # === НАСТРОЙКИ ===
-REIKA_IP = "reika"  # ← ВПИШИ TAILSCALE IP НОУТА!
+REIKA_IP = "100.76.27.31"  # ← ЦИФРОВОЙ IP!
 PORT = 5001
-RATE = 48000  # ← 48kHz вместо 16kHz!
-CHUNK = 960   # ← 20ms @ 48kHz (было 320)
+RATE = 48000
+CHUNK = 480  # 10ms (попробуй, если трещит — ставь 960)
+GAIN_DB = 35  # ← Твои +35dB
+
+def apply_gain(data, gain_db):
+    """Усиление PCM сигнала"""
+    factor = 10 ** (gain_db / 20)
+    samples = struct.unpack(f'{len(data)//2}h', data)
+    amplified = [max(-32768, min(32767, int(s * factor))) for s in samples]
+    return struct.pack(f'{len(amplified)}h', *amplified)
 
 def run():
-    print(f"[📡] Стрим на {REIKA_IP}:{PORT}...")
+    print(f"[📡] Стрим на {REIKA_IP}:{PORT} (+{GAIN_DB}dB)...")
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     
     p = pyaudio.PyAudio()
-    
-    # Индекс 0 = Google voiceHAT (INMP441)
-    dev_idx = 0
     
     try:
         stream = p.open(
@@ -24,12 +29,13 @@ def run():
             rate=RATE,
             input=True,
             frames_per_buffer=CHUNK,
-            input_device_index=dev_idx
+            input_device_index=0
         )
-        print(f"[🎤] Захват с устройства #{dev_idx}. Говори...")
+        print(f"[🎤] Захват с устройства #0. Говори...")
         
         while True:
             data = stream.read(CHUNK, exception_on_overflow=False)
+            data = apply_gain(data, GAIN_DB)  # ← Усиление!
             sock.sendto(data, (REIKA_IP, PORT))
     except KeyboardInterrupt:
         pass
